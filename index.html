@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumina Credit — AI-Powered Credit Repair Platform for Partners and Professionals</title>
+<meta name="description" content="Lumina Credit turns credit repair into mortgage readiness and deal recovery. Partners enroll clients, the platform supports the readiness work, and alerts you when a client reaches the Ready band.">
+<!--
+  Lumina Credit — public partner landing page (standalone static copy of the in-app landing view).
+  Copy is reproduced VERBATIM from the compliance-audited landing view (build 6d5dc073). Do not edit marketing copy here.
+  CTA substitution for public hosting: in-app actions (Get Started, plan starts, partner workspace, Sign In, Admin)
+  point to mailto:admin@getluminaai.com — visible button text is unchanged. Section nav links point to in-page anchors.
+  PHOTO SLOTS: the four original photos live inside the app build and could not be exported. Each .photo-slot below
+  is a styled placeholder carrying the original alt text; swap in the original assets when available:
+    1. people-home-keys.jpg        (hero main photo)
+    2. hero-light-path.webp        (hero overlay thumbnail)
+    3. people-new-home.jpg         (hopeful-moment band photo)
+    4. people-partner-meeting.webp (partners banner photo)
+-->
+<style>
+  :root{
+    --ink:#12312e; --teal:#0d3b3a; --teal2:#0a2e2d; --cream:#fdf8ef; --paper:#fffdf8;
+    --gold:#e9a13b; --gold2:#f6c453; --coral:#f0764a; --sky:#7fc4bd; --muted:#4c6660;
+    --grad-hero:linear-gradient(135deg,#0a2e2d 0%,#0d3b3a 55%,#12524c 100%);
+    --grad-soft:linear-gradient(180deg,#fdf3df 0%,#fdeeda 100%);
+    --grad-sunrise:linear-gradient(135deg,#f6c453 0%,#f0764a 100%);
+    --radius:18px; --shadow:0 10px 30px rgba(13,59,58,.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.55}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  a{color:inherit}
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:var(--cream);border-bottom:1px solid #f0e3c8}
+  .nav{display:flex;align-items:center;gap:18px;padding:14px 0;flex-wrap:wrap}
+  .brand{font-weight:800;font-size:1.25rem;color:var(--teal);text-decoration:none;margin-right:auto}
+  .nav a.nl{color:var(--muted);text-decoration:none;font-weight:600;font-size:.95rem}
+  .nav a.nl:hover{color:var(--teal)}
+  .btn{display:inline-block;text-decoration:none;font-weight:700;border-radius:999px;padding:11px 22px;font-size:.98rem;border:2px solid transparent;cursor:pointer}
+  .btn-gold{background:var(--grad-sunrise);color:#fff;box-shadow:var(--shadow)}
+  .btn-outline{border-color:var(--sky);color:var(--teal);background:rgba(255,255,255,.06)}
+  .btn-light{background:#fff;color:var(--teal)}
+  .btn-sm{padding:8px 16px;font-size:.9rem}
+  /* Hero */
+  .hero{background:var(--grad-hero);color:#eafaf5;padding:64px 0 72px}
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:36px;align-items:center}
+  @media(min-width:900px){.hero-grid{grid-template-columns:1.05fr .95fr}}
+  .pill{display:inline-block;background:rgba(246,196,83,.16);border:1px solid rgba(246,196,83,.55);color:var(--gold2);border-radius:999px;padding:6px 14px;font-weight:700;font-size:.88rem}
+  h1{font-size:2.35rem;line-height:1.15;margin:18px 0 16px;color:#fff}
+  h1 .gold{color:var(--gold2)}
+  @media(min-width:900px){h1{font-size:3rem}}
+  .hero p.lede{font-size:1.08rem;color:#d7efe8;max-width:56ch}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 18px}
+  .hero .sub{color:#a9d8cd;font-size:.95rem;max-width:60ch}
+  .photo-slot{border-radius:var(--radius);background:linear-gradient(140deg,#f6c453 0%,#f0764a 55%,#12524c 130%);min-height:260px;position:relative;box-shadow:var(--shadow)}
+  .photo-slot.tall{min-height:340px}
+  .overlay-card{position:absolute;left:16px;bottom:16px;background:#fff;border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:center;max-width:88%;box-shadow:var(--shadow)}
+  .overlay-thumb{width:52px;height:52px;border-radius:10px;background:linear-gradient(160deg,#f6c453,#f0764a);flex:none}
+  .overlay-card strong{display:block;color:var(--teal);font-size:.98rem}
+  .overlay-card span{color:var(--muted);font-size:.9rem}
+  /* Signature strip */
+  .strip{background:var(--grad-soft);padding:34px 0}
+  .strip-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(min-width:900px){.strip-grid{grid-template-columns:repeat(4,1fr)}}
+  .strip-card{background:#fff;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+  .strip-card strong{display:block;color:var(--teal);font-size:1.02rem;margin-bottom:4px}
+  .strip-card span{color:var(--muted);font-size:.93rem}
+  /* Bands & sections */
+  section{padding:64px 0}
+  .band{display:grid;grid-template-columns:1fr;gap:32px;align-items:center}
+  @media(min-width:900px){.band{grid-template-columns:1fr 1fr}}
+  .eyebrow{color:var(--coral);font-weight:800;letter-spacing:.04em;text-transform:uppercase;font-size:.82rem}
+  h2{font-size:1.9rem;line-height:1.2;color:var(--teal);margin:10px 0 14px}
+  .band p,.sec-intro{color:var(--muted);font-size:1.02rem;max-width:64ch}
+  .band p+p{margin-top:12px}
+  .photo-slot.band-photo{min-height:300px;background:linear-gradient(140deg,#7fc4bd 0%,#12524c 120%)}
+  /* Pillars */
+  .grid-4{display:grid;grid-template-columns:1fr;gap:16px;margin-top:28px}
+  @media(min-width:700px){.grid-4{grid-template-columns:1fr 1fr}}
+  @media(min-width:1000px){.grid-4{grid-template-columns:repeat(4,1fr)}}
+  .grid-2{display:grid;grid-template-columns:1fr;gap:16px;margin-top:16px}
+  @media(min-width:800px){.grid-2{grid-template-columns:1fr 1fr}}
+  .card{background:#fff;border:1px solid #f0e3c8;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  .card h3{color:var(--teal);font-size:1.12rem;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:.97rem}
+  /* How it works */
+  .dark{background:var(--grad-hero);color:#eafaf5}
+  .dark h2{color:#fff}
+  .dark .sec-intro{color:#cfe9e1}
+  .steps{display:grid;grid-template-columns:1fr;gap:16px;margin-top:30px}
+  @media(min-width:700px){.steps{grid-template-columns:1fr 1fr}}
+  @media(min-width:1000px){.steps{grid-template-columns:repeat(3,1fr)}}
+  @media(min-width:1200px){.steps{grid-template-columns:repeat(5,1fr)}}
+  .step{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:var(--radius);padding:20px}
+  .num{width:40px;height:40px;border-radius:50%;background:var(--grad-sunrise);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+  .step h3{font-size:1.02rem;margin-bottom:8px;color:#fff}
+  .step p{color:#cfe9e1;font-size:.93rem}
+  .callout{margin-top:22px;background:rgba(246,196,83,.1);border:1px solid rgba(246,196,83,.5);border-radius:var(--radius);padding:20px 22px;color:#f3e9d2;font-size:.98rem}
+  /* Plans */
+  .plans{display:grid;grid-template-columns:1fr;gap:16px;margin-top:30px}
+  @media(min-width:950px){.plans{grid-template-columns:repeat(3,1fr)}}
+  .plan{background:#fff;border:1px solid #f0e3c8;border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .plan.featured{border:2px solid var(--gold)}
+  .badge{align-self:flex-start;background:var(--grad-sunrise);color:#fff;border-radius:999px;padding:4px 12px;font-size:.8rem;font-weight:800;margin-bottom:10px}
+  .plan h3{color:var(--teal);font-size:1.3rem}
+  .plan .tag{color:var(--coral);font-weight:700;margin:4px 0 14px}
+  .plan ul{list-style:none;margin:0 0 22px}
+  .plan li{padding:7px 0;border-bottom:1px dashed #f0e3c8;color:var(--muted);font-size:.96rem}
+  .plan li:last-child{border-bottom:none}
+  .plan .btn{margin-top:auto;text-align:center}
+  /* Partners */
+  .partners{background:var(--grad-soft)}
+  .banner-photo{border-radius:var(--radius);min-height:210px;background:linear-gradient(120deg,#f6c453 0%,#7fc4bd 90%);box-shadow:var(--shadow);margin-bottom:34px}
+  @media(min-width:900px){.banner-photo{min-height:260px}}
+  .partner-grid{display:grid;grid-template-columns:1fr;gap:30px}
+  @media(min-width:900px){.partner-grid{grid-template-columns:1.05fr .95fr}}
+  .partner-grid p{color:var(--muted);margin-bottom:14px;max-width:60ch}
+  .side-card{background:#fff;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+  .side-card h3{color:var(--teal);margin-bottom:14px}
+  .side-card dt{font-weight:800;color:var(--teal);margin-top:12px}
+  .side-card dd{color:var(--muted);font-size:.95rem}
+  .side-card .foot{margin-top:16px;padding-top:14px;border-top:1px dashed #f0e3c8;color:var(--muted);font-size:.93rem}
+  /* Closing */
+  .closing{background:var(--grad-hero);color:#eafaf5;text-align:center;padding:70px 0}
+  .closing .big{font-size:1.7rem;font-weight:800;color:#fff;max-width:26ch;margin:0 auto 10px}
+  .closing p{color:#cfe9e1;margin-bottom:24px}
+  .closing .cta-row{justify-content:center}
+  /* Footer */
+  footer{background:#0a2322;color:#b9d6cf;padding:52px 0 44px;font-size:.95rem}
+  footer .brand{color:#fff}
+  footer p{max-width:78ch;margin:12px 0}
+  footer h4{color:var(--gold2);margin:22px 0 10px;font-size:1rem}
+  footer ul{list-style:disc;padding-left:22px;max-width:78ch}
+  footer li{margin:7px 0}
+  footer .fine{color:#8fb3aa;font-size:.88rem;margin-top:20px}
+  footer a{color:var(--gold2)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">Lumina Credit</a>
+    <a class="nl" href="#features">Features</a>
+    <a class="nl" href="#how-it-works">How It Works</a>
+    <a class="nl" href="#plans">Plans</a>
+    <a class="nl" href="#partners">Partners</a>
+    <a class="nl" href="mailto:admin@getluminaai.com">Sign In</a>
+    <a class="nl" href="mailto:admin@getluminaai.com">Admin</a>
+    <a class="btn btn-gold btn-sm" href="mailto:admin@getluminaai.com?subject=Getting%20started%20with%20Lumina%20Credit">Get Started</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="pill">☀️ For partners &amp; professionals</span>
+        <h1>AI-Powered Credit Repair Platform for <span class="gold">Partners and Professionals.</span></h1>
+        <p class="lede">Lumina Credit turns credit repair into mortgage readiness and deal recovery. You enroll the clients you have to turn away today; the platform supports the readiness work — disputes, utilization, one clear next move at a time — and alerts you when a client reaches the Ready band so you can reconnect. A “not yet” today may still become a future opportunity — lenders make their own decisions.</p>
+        <div class="cta-row">
+          <a class="btn btn-gold" href="mailto:admin@getluminaai.com?subject=Getting%20started%20with%20Lumina%20Credit">Get Started →</a>
+          <a class="btn btn-outline" href="mailto:admin@getluminaai.com?subject=Partner%20inquiry%20—%20Lumina%20Credit">🤝 I'm a Partner</a>
+          <a class="btn btn-outline" href="#how-it-works">See How It Works</a>
+        </div>
+        <p class="sub">No guaranteed outcomes. No overnight promises. A real plan, an honest clock, and a readiness estimate you can explain — with momentum you can feel at every step.</p>
+      </div>
+      <div>
+        <!-- PHOTO SLOT 1: people-home-keys.jpg — alt: "A joyful couple celebrating in their new home, holding up their house keys" -->
+        <div class="photo-slot tall" role="img" aria-label="A joyful couple celebrating in their new home, holding up their house keys">
+          <div class="overlay-card">
+            <!-- PHOTO SLOT 2: hero-light-path.webp — alt: "Golden path of light rising through arches — the Lumina Credit artwork" -->
+            <div class="overlay-thumb" role="img" aria-label="Golden path of light rising through arches — the Lumina Credit artwork"></div>
+            <div>
+              <strong>This is the moment we work toward</strong>
+              <span>Keys in hand. Deal recovered. Client smiling.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNATURE STRIP -->
+  <div class="strip">
+    <div class="wrap strip-grid">
+      <div class="strip-card"><strong>📈 LuminaScore™</strong><span>Readiness, measured — and rising</span></div>
+      <div class="strip-card"><strong>📱 Lumina Pocket™</strong><span>The plan, in their pocket</span></div>
+      <div class="strip-card"><strong>💬 Response Decoder™</strong><span>Bureau letters, in plain words</span></div>
+      <div class="strip-card"><strong>✨ Your Next Best Move™</strong><span>One action, always current</span></div>
+    </div>
+  </div>
+
+  <!-- HOPEFUL-MOMENT BAND -->
+  <section>
+    <div class="wrap band">
+      <!-- PHOTO SLOT 3: people-new-home.jpg — alt: "A happy couple outside their new home, holding up the keys and smiling in the sunshine" -->
+      <div class="photo-slot band-photo" role="img" aria-label="A happy couple outside their new home, holding up the keys and smiling in the sunshine"></div>
+      <div>
+        <div class="eyebrow">Why clients stick with it</div>
+        <h2>Credit repair feels long. Progress shouldn't feel invisible.</h2>
+        <p>Most people quit credit repair because nothing seems to be happening. Lumina Credit makes every bit of progress visible — a readiness estimate that reflects your file as you work, one clear next move instead of forty, and a win logged every time you finish a step. Small wins, seen clearly, are what carry people to the finish line.</p>
+        <p>No hype, no promised outcomes — just honest progress you can watch happen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES / THE FOUR PILLARS -->
+  <section id="features" style="padding-top:10px">
+    <div class="wrap">
+      <h2>The four pillars</h2>
+      <p class="sec-intro">Credit repair is regulated for a reason. Lumina Credit is built around the work itself — accurate disputes, honest timelines, and a readiness measure your clients and partners can both understand — presented so people actually want to keep going.</p>
+      <div class="grid-4">
+        <div class="card">
+          <h3>📈 LuminaScore™</h3>
+          <p>A readiness score that answers the only question that matters — how close is this client to fundable? Built from the negative items, utilization, payment standing, and dispute progress in the client's own file, with the math shown in plain language.</p>
+        </div>
+        <div class="card">
+          <h3>📱 Lumina Pocket™</h3>
+          <p>The client's pocket companion — their plan, their readiness, and their progress on their phone, in one glance. Because most clients will never open a desktop dashboard.</p>
+        </div>
+        <div class="card">
+          <h3>💬 Response Decoder™</h3>
+          <p>Bureau letters are written in legal static. The Decoder translates any response into plain language: what the bureau actually did, what it means for the plan, and the next step.</p>
+        </div>
+        <div class="card">
+          <h3>✨ Your Next Best Move™</h3>
+          <p>No 40-item to-do list. Every client sees the single highest-impact action, always current — send this dispute, pay this card down, decode that reply. Momentum without overwhelm.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>⏱️ Disputes, tracked honestly</h3>
+          <p>Every dispute carries its bureau, sent date, and response window. Federal law gives bureaus 30–45 days to investigate; the platform shows that clock instead of pretending answers come overnight.</p>
+        </div>
+        <div class="card">
+          <h3>🗂️ Document Vault</h3>
+          <p>Reports, letters, and bureau responses in one place, with a record trail on everything sent. In a regulated business, the paper trail is the product.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" class="dark">
+    <div class="wrap">
+      <h2>How It Works for Partners</h2>
+      <p class="sec-intro">From a deal stalled at the credit step to a client back in the Ready band — you enroll the client, the platform supports the readiness work, and you are alerted when they reach Ready so you can reconnect.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <h3>You enroll a client</h3>
+          <p>A deal stalls at the credit step — a mortgage application, an auto loan, a lease. Instead of turning the client away, you enroll them in Lumina Credit the same day.</p>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <h3>Report imported, plan built</h3>
+          <p>The client imports a credit report. The platform finds the negative items, drafts FCRA dispute letters, and builds a step-by-step readiness plan around their goal.</p>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <h3>Disputes run — fully tracked</h3>
+          <p>Every dispute carries its bureau, mailed date, and the FCRA response window, and every bureau reply is decoded into plain language for the client.</p>
+        </div>
+        <div class="step">
+          <div class="num">4</div>
+          <h3>You watch the pipeline board</h3>
+          <p>Each client's stage, LuminaScore™, and current move at a glance — clients moving from Enrolled to In Plan to Disputes Running, without you chasing updates.</p>
+        </div>
+        <div class="step">
+          <div class="num">5</div>
+          <h3>You're alerted at Nearly Ready and Ready</h3>
+          <p>When a client crosses into the Nearly Ready or Ready band, the alert lands on your board — so you can reconnect with the client. Any lending decision remains the lender's.</p>
+        </div>
+      </div>
+      <div class="callout">The partner privacy boundary, plainly: partners see client progress — readiness, pipeline stage, and the current next move. You do not see the client's full credit report, account-by-account details, or dispute letter text. Progress is shared; the report stays the client's.</div>
+    </div>
+  </section>
+
+  <!-- PLANS -->
+  <section id="plans">
+    <div class="wrap">
+      <h2>Plans</h2>
+      <p class="sec-intro">Your plan and price are set when you enroll — your partner or the Lumina team confirms the exact terms with you before anything is charged. Billing never starts before services are performed, and you can cancel at any time.</p>
+      <div class="plans">
+        <div class="plan">
+          <h3>Readiness</h3>
+          <div class="tag">The full client spine</div>
+          <ul>
+            <li>LuminaScore™ readiness tracking</li>
+            <li>Report import &amp; negative-item finder</li>
+            <li>Dispute center with drafted FCRA letters</li>
+            <li>Your Next Best Move™ action plan</li>
+            <li>Document Vault</li>
+          </ul>
+          <a class="btn btn-gold" href="mailto:admin@getluminaai.com?subject=Start%20with%20Readiness%20—%20Lumina%20Credit">Start with Readiness</a>
+        </div>
+        <div class="plan featured">
+          <span class="badge">⭐ Most complete</span>
+          <h3>Readiness Plus</h3>
+          <div class="tag">For clients who want a coach in the loop</div>
+          <ul>
+            <li>Everything in Readiness</li>
+            <li>Response Decoder™ unlimited decodes</li>
+            <li>Utilization coaching &amp; what-if Simulator</li>
+            <li>Priority plan reviews</li>
+            <li>Partner progress updates</li>
+          </ul>
+          <a class="btn btn-gold" href="mailto:admin@getluminaai.com?subject=Start%20with%20Readiness%20Plus%20—%20Lumina%20Credit">Start with Readiness Plus</a>
+        </div>
+        <div class="plan">
+          <h3>Partner</h3>
+          <div class="tag">For mortgage pros, dealers &amp; teams</div>
+          <ul>
+            <li>Enroll clients under your business</li>
+            <li>Readiness &amp; next-move visibility per client</li>
+            <li>Deal-recovery alerts at ready range</li>
+            <li>Co-branded client experience</li>
+            <li>Volume enrollment</li>
+          </ul>
+          <a class="btn btn-gold" href="mailto:admin@getluminaai.com?subject=Start%20with%20Partner%20—%20Lumina%20Credit">Start with Partner</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section id="partners" class="partners">
+    <div class="wrap">
+      <!-- PHOTO SLOT 4: people-partner-meeting.webp — alt: "A smiling couple meeting with their advisor in a bright office, looking relieved and optimistic" -->
+      <div class="banner-photo" role="img" aria-label="A smiling couple meeting with their advisor in a bright office, looking relieved and optimistic"></div>
+      <div class="partner-grid">
+        <div>
+          <h2>Partners reconnect with clients credit stalled</h2>
+          <p>Mortgage professionals, auto dealers, and credit and finance professionals all lose the same deals the same way: a file that is one repair season away from fundable. Lumina Credit gives your clients a real path back — and gives you the readiness signal that tells you when to pick the file back up.</p>
+          <p>Enroll a client in minutes. They get Lumina Pocket™, a plan, and one next move at a time. You get a readiness signal when they reach the Ready band, so you can reconnect instead of letting the lead go cold — the lending decision stays with the lender.</p>
+          <div class="cta-row">
+            <a class="btn btn-gold" href="mailto:admin@getluminaai.com?subject=Enroll%20a%20client%20—%20Lumina%20Credit%20Partner">Enroll a Client — Partner Workspace</a>
+            <a class="btn btn-light" href="mailto:admin@getluminaai.com?subject=Operator%20%2F%20Admin%20Console%20—%20Lumina%20Credit">Operator / Admin Console</a>
+          </div>
+        </div>
+        <div class="side-card">
+          <h3>What a partner sees at a glance</h3>
+          <dl>
+            <dt>Readiness</dt>
+            <dd>LuminaScore™ and band, with the factors moving it</dd>
+            <dt>Current move</dt>
+            <dd>The client's Your Next Best Move™, verbatim</dd>
+            <dt>Time in plan</dt>
+            <dd>Days since enrollment — no guessing where a file stands</dd>
+            <dt>Dispute clock</dt>
+            <dd>Sent dates and the FCRA response window for every dispute</dd>
+          </dl>
+          <p class="foot">That's the whole view — progress, not the full credit report. Account-level report contents and dispute letter text stay with the client.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <div class="wrap">
+      <div class="big">Your client's comeback story starts with one move.</div>
+      <p>Enroll them today, and let the momentum do what momentum does.</p>
+      <div class="cta-row">
+        <a class="btn btn-gold" href="mailto:admin@getluminaai.com?subject=Getting%20started%20with%20Lumina%20Credit">Get Started</a>
+        <a class="btn btn-outline" href="mailto:admin@getluminaai.com">Sign In</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">Lumina Credit</div>
+    <p>Lumina Credit provides credit education and dispute-preparation tools. LuminaScore™ is a readiness estimate based on the information in your file — it is not a credit score, and no outcome or score increase is guaranteed. Lenders make their own decisions. You have the right to dispute inaccurate information with the credit bureaus directly, for free, at <a href="https://www.annualcreditreport.com">annualcreditreport.com</a>.</p>
+    <h4>Before we start — the honest disclosures</h4>
+    <ul>
+      <li>LuminaScore™ is a readiness estimate, not a credit score. No score increase or funding outcome is guaranteed.</li>
+      <li>You can dispute inaccurate items with the bureaus yourself, free, at annualcreditreport.com. This platform organizes and tracks that work for you.</li>
+      <li>Bureaus generally have 30 days (up to 45) to investigate a dispute under the FCRA. Timelines shown here reflect that.</li>
+      <li>Under the Credit Repair Organizations Act, you may cancel within three business days of enrolling, and fees are never charged before services are performed.</li>
+    </ul>
+    <p class="fine">Nothing on this page is legal advice.</p>
+    <p class="fine">© 2026 Lumina Credit · A NovaStar AI Solutions platform</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -212,6 +212,118 @@
     </div>
   </div>
 
+  <!-- LUNA LIVE — top placement -->
+  <section style="padding:30px 0 10px">
+    <div class="wrap">
+<!--
+  Luna for Lumina Credit — embeddable widget snippet for getluminacredit.com
+  ==========================================================================
+  Partner-facing twin of the Luna Live widget on getluminaai.com. Same
+  endpoint, partner persona selected with ?p=credit. On Start, the widget
+  POSTs to the token endpoint, receives a short-lived Anam session token
+  (the API key never reaches the browser), loads the Anam JS SDK from
+  esm.sh, and streams Luna to the video element.
+-->
+<div id="luna-credit-widget" class="llc-card">
+  <style>
+    .llc-card{box-sizing:border-box;max-width:560px;margin:0 auto;padding:20px;border-radius:16px;background:#0f1b2d;color:#f2f6fb;font-family:inherit;box-shadow:0 10px 30px rgba(2,12,27,.35);text-align:left}
+    .llc-card *{box-sizing:border-box}
+    .llc-badge{display:inline-block;padding:3px 10px;border-radius:999px;background:#12365e;color:#9fd0ff;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+    .llc-title{margin:10px 0 4px;font-size:24px;line-height:1.2;color:#f2f6fb}
+    .llc-sub{margin:0 0 14px;color:#c4d3e4;font-size:15px;line-height:1.45}
+    .llc-stage{position:relative;border-radius:12px;overflow:hidden;background:#060d18;aspect-ratio:16/9}
+    .llc-stage video{width:100%;height:100%;object-fit:cover;display:block;background:#060d18}
+    .llc-live{position:absolute;top:10px;left:10px;display:none;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(6,13,24,.75);color:#fff;font-size:12px}
+    .llc-live .llc-dot{width:8px;height:8px;border-radius:50%;background:#ff4d4d}
+    .llc-status{margin:12px 2px 0;font-size:14px;color:#c4d3e4;min-height:20px}
+    .llc-actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+    .llc-btn{appearance:none;border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:600;cursor:pointer}
+    .llc-btn[disabled]{opacity:.55;cursor:default}
+    .llc-start{background:#2f9e6e;color:#fff}
+    .llc-end{background:#3a4a5f;color:#fff;display:none}
+    .llc-fallbacks{margin-top:14px;font-size:13.5px;color:#9fb4c9;line-height:1.5}
+    .llc-fallbacks a{color:#9fd0ff}
+  </style>
+
+  <span class="llc-badge">Luna — Live</span>
+  <h3 class="llc-title">Questions about partnering? Talk to Luna live.</h3>
+  <p class="llc-sub">Luna is Clay Mitchell's assistant. She'll walk you through how Lumina Credit works for partners, what it costs, and how your declined customers come back ready — live on video, right now.</p>
+
+  <div class="llc-stage">
+    <video id="llc-video" autoplay playsinline></video>
+    <span class="llc-live" id="llc-live"><span class="llc-dot"></span>Live</span>
+  </div>
+
+  <p class="llc-status" id="llc-status">Ready — tap Start live video to talk to Luna.</p>
+
+  <div class="llc-actions">
+    <button type="button" class="llc-btn llc-start" id="llc-start">Start live video with Luna</button>
+    <button type="button" class="llc-btn llc-end" id="llc-end">End call</button>
+  </div>
+
+  <p class="llc-fallbacks">
+    Ready to join? <a href="https://buy.stripe.com/dRm9AT9LY67vc9e4zqcs800" target="_blank" rel="noopener">Enroll as a Founding Partner — $149/mo, locked</a><br>
+    Prefer email? <a href="mailto:admin@getluminaai.com?subject=Lumina%20Credit%20partner%20question">admin@getluminaai.com</a>
+  </p>
+
+  <script type="module">
+    // ===== Luna for Lumina Credit widget =====
+    const TOKEN_ENDPOINT = "https://luna-live-token.netlify.app/api/token?p=credit";
+
+    const startBtn = document.getElementById("llc-start");
+    const endBtn = document.getElementById("llc-end");
+    const statusEl = document.getElementById("llc-status");
+    const liveEl = document.getElementById("llc-live");
+    let anamClient = null;
+
+    function setStatus(message) { statusEl.textContent = message; }
+
+    function setLiveUI(live) {
+      liveEl.style.display = live ? "inline-flex" : "none";
+      endBtn.style.display = live ? "inline-block" : "none";
+      startBtn.style.display = live ? "none" : "inline-block";
+    }
+
+    async function startChat() {
+      startBtn.disabled = true;
+      try {
+        setStatus("Connecting…");
+        const response = await fetch(TOKEN_ENDPOINT, { method: "POST" });
+        if (!response.ok) throw new Error("token endpoint returned " + response.status);
+        const { sessionToken } = await response.json();
+        if (!sessionToken) throw new Error("no session token returned");
+
+        setStatus("Connecting to Luna…");
+        const { createClient } = await import("https://esm.sh/@anam-ai/js-sdk@latest");
+        anamClient = createClient(sessionToken);
+        await anamClient.streamToVideoElement("llc-video");
+        setLiveUI(true);
+        setStatus("Live — speak to Luna. She can explain the partner program and answer your questions.");
+      } catch (err) {
+        anamClient = null;
+        setLiveUI(false);
+        setStatus("Connection failed (" + (err && err.message ? err.message : "unknown error") + "). Please try again, or use the enrollment link or email below.");
+      } finally {
+        startBtn.disabled = false;
+      }
+    }
+
+    function stopChat() {
+      if (anamClient) {
+        try { anamClient.stopStreaming(); } catch (e) { /* already stopped */ }
+        anamClient = null;
+      }
+      setLiveUI(false);
+      setStatus("Session ended — thanks for talking with Luna. The enrollment link and email below reach us any time.");
+    }
+
+    startBtn.addEventListener("click", startChat);
+    endBtn.addEventListener("click", stopChat);
+  </script>
+</div>
+    </div>
+  </section>
+
   <!-- SIGNATURE STRIP -->
   <div class="strip">
     <div class="wrap strip-grid">
@@ -385,112 +497,6 @@
           <p class="foot">That's the whole view — progress, not the full credit report. Account-level report contents and dispute letter text stay with the client.</p>
         </div>
       </div>
-<!--
-  Luna for Lumina Credit — embeddable widget snippet for getluminacredit.com
-  ==========================================================================
-  Partner-facing twin of the Luna Live widget on getluminaai.com. Same
-  endpoint, partner persona selected with ?p=credit. On Start, the widget
-  POSTs to the token endpoint, receives a short-lived Anam session token
-  (the API key never reaches the browser), loads the Anam JS SDK from
-  esm.sh, and streams Luna to the video element.
--->
-<div id="luna-credit-widget" class="llc-card">
-  <style>
-    .llc-card{box-sizing:border-box;max-width:560px;margin:28px auto 4px;padding:20px;border-radius:16px;background:#0f1b2d;color:#f2f6fb;font-family:inherit;box-shadow:0 10px 30px rgba(2,12,27,.35);text-align:left}
-    .llc-card *{box-sizing:border-box}
-    .llc-badge{display:inline-block;padding:3px 10px;border-radius:999px;background:#12365e;color:#9fd0ff;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
-    .llc-title{margin:10px 0 4px;font-size:24px;line-height:1.2;color:#f2f6fb}
-    .llc-sub{margin:0 0 14px;color:#c4d3e4;font-size:15px;line-height:1.45}
-    .llc-stage{position:relative;border-radius:12px;overflow:hidden;background:#060d18;aspect-ratio:16/9}
-    .llc-stage video{width:100%;height:100%;object-fit:cover;display:block;background:#060d18}
-    .llc-live{position:absolute;top:10px;left:10px;display:none;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(6,13,24,.75);color:#fff;font-size:12px}
-    .llc-live .llc-dot{width:8px;height:8px;border-radius:50%;background:#ff4d4d}
-    .llc-status{margin:12px 2px 0;font-size:14px;color:#c4d3e4;min-height:20px}
-    .llc-actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
-    .llc-btn{appearance:none;border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:600;cursor:pointer}
-    .llc-btn[disabled]{opacity:.55;cursor:default}
-    .llc-start{background:#2f9e6e;color:#fff}
-    .llc-end{background:#3a4a5f;color:#fff;display:none}
-    .llc-fallbacks{margin-top:14px;font-size:13.5px;color:#9fb4c9;line-height:1.5}
-    .llc-fallbacks a{color:#9fd0ff}
-  </style>
-
-  <span class="llc-badge">Luna — Live</span>
-  <h3 class="llc-title">Questions about partnering? Talk to Luna live.</h3>
-  <p class="llc-sub">Luna is Clay Mitchell's assistant. She'll walk you through how Lumina Credit works for partners, what it costs, and how your declined customers come back ready — live on video, right now.</p>
-
-  <div class="llc-stage">
-    <video id="llc-video" autoplay playsinline></video>
-    <span class="llc-live" id="llc-live"><span class="llc-dot"></span>Live</span>
-  </div>
-
-  <p class="llc-status" id="llc-status">Ready — tap Start live video to talk to Luna.</p>
-
-  <div class="llc-actions">
-    <button type="button" class="llc-btn llc-start" id="llc-start">Start live video with Luna</button>
-    <button type="button" class="llc-btn llc-end" id="llc-end">End call</button>
-  </div>
-
-  <p class="llc-fallbacks">
-    Ready to join? <a href="https://buy.stripe.com/dRm9AT9LY67vc9e4zqcs800" target="_blank" rel="noopener">Enroll as a Founding Partner — $149/mo, locked</a><br>
-    Prefer email? <a href="mailto:admin@getluminaai.com?subject=Lumina%20Credit%20partner%20question">admin@getluminaai.com</a>
-  </p>
-
-  <script type="module">
-    // ===== Luna for Lumina Credit widget =====
-    const TOKEN_ENDPOINT = "https://luna-live-token.netlify.app/api/token?p=credit";
-
-    const startBtn = document.getElementById("llc-start");
-    const endBtn = document.getElementById("llc-end");
-    const statusEl = document.getElementById("llc-status");
-    const liveEl = document.getElementById("llc-live");
-    let anamClient = null;
-
-    function setStatus(message) { statusEl.textContent = message; }
-
-    function setLiveUI(live) {
-      liveEl.style.display = live ? "inline-flex" : "none";
-      endBtn.style.display = live ? "inline-block" : "none";
-      startBtn.style.display = live ? "none" : "inline-block";
-    }
-
-    async function startChat() {
-      startBtn.disabled = true;
-      try {
-        setStatus("Connecting…");
-        const response = await fetch(TOKEN_ENDPOINT, { method: "POST" });
-        if (!response.ok) throw new Error("token endpoint returned " + response.status);
-        const { sessionToken } = await response.json();
-        if (!sessionToken) throw new Error("no session token returned");
-
-        setStatus("Connecting to Luna…");
-        const { createClient } = await import("https://esm.sh/@anam-ai/js-sdk@latest");
-        anamClient = createClient(sessionToken);
-        await anamClient.streamToVideoElement("llc-video");
-        setLiveUI(true);
-        setStatus("Live — speak to Luna. She can explain the partner program and answer your questions.");
-      } catch (err) {
-        anamClient = null;
-        setLiveUI(false);
-        setStatus("Connection failed (" + (err && err.message ? err.message : "unknown error") + "). Please try again, or use the enrollment link or email below.");
-      } finally {
-        startBtn.disabled = false;
-      }
-    }
-
-    function stopChat() {
-      if (anamClient) {
-        try { anamClient.stopStreaming(); } catch (e) { /* already stopped */ }
-        anamClient = null;
-      }
-      setLiveUI(false);
-      setStatus("Session ended — thanks for talking with Luna. The enrollment link and email below reach us any time.");
-    }
-
-    startBtn.addEventListener("click", startChat);
-    endBtn.addEventListener("click", stopChat);
-  </script>
-</div>
     </div>
   </section>
 

@@ -285,7 +285,12 @@
       } catch (err) {
         anamClient = null;
         setLiveUI(false);
-        setStatus("Connection failed (" + (err && err.message ? err.message : "unknown error") + "). Please try again, or use the enrollment link or email below.");
+        const msg = err && err.message ? err.message : "";
+        if (/concurren/i.test(msg)) {
+          setStatus("Luna is just wrapping up another conversation — please wait a minute and tap Start again. Or use the enrollment link or email below.");
+        } else {
+          setStatus("Luna couldn't connect just now. Please try again, or use the enrollment link or email below.");
+        }
       } finally {
         startBtn.disabled = false;
       }

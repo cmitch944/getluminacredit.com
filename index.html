@@ -270,6 +270,17 @@
     async function startChat() {
       startBtn.disabled = true;
       try {
+        setStatus("One moment — Luna needs your microphone. Please tap Allow when your browser asks.");
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          try {
+            const micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            micStream.getTracks().forEach(function (t) { t.stop(); });
+          } catch (micErr) {
+            setStatus("Luna needs microphone access to talk with you. Please allow it in your browser, then tap Start again.");
+            return;
+          }
+          await new Promise(function (resolve) { setTimeout(resolve, 1000); });
+        }
         setStatus("Connecting…");
         const response = await fetch(TOKEN_ENDPOINT, { method: "POST" });
         if (!response.ok) throw new Error("token endpoint returned " + response.status);

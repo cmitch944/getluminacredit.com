@@ -284,7 +284,7 @@
         setStatus("Connecting…");
         const response = await fetch(TOKEN_ENDPOINT, { method: "POST" });
         if (!response.ok) throw new Error("token endpoint returned " + response.status);
-        const { sessionToken } = await response.json();
+        const { sessionToken, greeting } = await response.json();
         if (!sessionToken) throw new Error("no session token returned");
 
         setStatus("Connecting to Luna…");
@@ -292,6 +292,12 @@
         anamClient = createClient(sessionToken);
         await anamClient.streamToVideoElement("llc-video");
         setLiveUI(true);
+        // Let the audio path settle (mic live, output stable) before Luna
+        // speaks, so her greeting never clips while the mic is opening.
+        if (greeting) {
+          await new Promise(function (resolve) { setTimeout(resolve, 1500); });
+          try { await anamClient.talk(greeting); } catch (talkErr) { /* Luna can still answer when the visitor speaks */ }
+        }
         setStatus("Live — speak to Luna. She can explain the partner program and answer your questions.");
       } catch (err) {
         anamClient = null;
